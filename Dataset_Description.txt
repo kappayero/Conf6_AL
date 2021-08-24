@@ -1,0 +1,11 @@
+This set contains 1552 images of size 448x448 pixels.
+The augmenters applied to the original images are:
+   -Flip vertically (100% of the original images)
+   -Flip horizontally (100% of the original images)
+   -MultiplySaturation between 1,4 and 1,5 and GammaContrast between 1,7 and 1,9 (35% of the training set)
+   -AdditiveLaplaceNoise of (0,06*255) (45% of the training set)
+   -AdditiveLaplaceNoise of (0,12*255) (20% of the training set)
+This dataset contains a python file to Scan(), Increment(int) or Replicate() a dataset and a json registry file to keep track of the current file configuration for active learning.
+	Scan will create the json file with the description of the img and label addresses and if they have been moved or not yet
+	Increment will move the given amount of percentage of images (of the total training set) to the training folder
+	Replicate() will replicate the location of the images according to the json file. Useful when recovering a previous state but all images are back in the activeLearning folder
