@@ -134,7 +134,10 @@ def Increment(val):
     if not(listLoaded):
         Scan()
         objectList, listLoaded = LoadRegistries()
-    totalNumObj = len(objectList)
+        
+    toMove = list(filter(lambda x: x[1] == "N", objectList))
+    rest = list(filter(lambda x: x[1] == "Y", objectList))
+    totalNumObj = len(toMove)
     totObjToIncrement = totalNumObj*perc
     PosPerc = 0.35
     UnsPerc = 0.45
@@ -147,8 +150,6 @@ def Increment(val):
     print("\tPos: "+str(posIncr))
     print("\tUns: "+str(unsIncr))
     print("\tNeg: "+str(negIncr))
-    toMove = list(filter(lambda x: x[1] == "N", objectList))
-    rest = list(filter(lambda x: x[1] == "Y", objectList))
     posList = list(filter(lambda p: p[2] == "positive", toMove))
     posToMove = posList[:posIncr]
     rest += posList[posIncr:]
