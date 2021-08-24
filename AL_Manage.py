@@ -3,6 +3,7 @@ from os import listdir
 from pathlib import Path
 import json
 import shutil
+import sys
 
 def createFolderIfNotExists(pathToCheck):
     if not os.path.exists(pathToCheck):
@@ -186,5 +187,30 @@ def Replicate():
     
     MoveObjects(toMove, dataset_path_train, True)
     print("Done!")
+
+def PrintReportSummary(listFromReport):
+    if(len(listFromReport) == 0):
+        listFromReport, isLoaded = LoadRegistries()
+        if(not(isLoaded)):
+            sys.exit('Error: Any List was given as an argument and any file could be loaded.')
+    
+    toMove = list(filter(lambda x: x[1] == "N", listFromReport))
+    toMovePos = list(filter(lambda p: p[2] == "positive", toMove))
+    toMoveUns = list(filter(lambda p: p[2] == "unsure", toMove))
+    toMoveNeg = list(filter(lambda p: p[2] == "negative", toMove))
+    print("Not Moved total: "+str(len(toMove)))
+    print("\tPos: "+str(len(toMovePos)))
+    print("\tUns: "+str(len(toMoveUns)))
+    print("\tNeg: "+str(len(toMoveNeg)))
+    
+    moved = list(filter(lambda x: x[1] == "Y", listFromReport))
+    movedPos = list(filter(lambda p: p[2] == "positive", moved))
+    movedUns = list(filter(lambda p: p[2] == "unsure", moved))
+    movedNeg = list(filter(lambda p: p[2] == "negative", moved))
+    print("Already moved total: "+str(len(moved)))
+    print("\tPos: "+str(len(movedPos)))
+    print("\tUns: "+str(len(movedUns)))
+    print("\tNeg: "+str(len(movedNeg)))
+
     
     
